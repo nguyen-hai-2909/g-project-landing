@@ -1,32 +1,10 @@
 'use client'
-import { useEffect, useState } from 'react'
-import { aboutdata } from '@/app/types/aboutdata'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Icon } from '@iconify/react'
-import AboutSkeleton from '../../Skeleton/AboutUs'
+import { Aboutdata } from '@/data/site'
 
 const Aboutus = () => {
-  // fetch about data
-  const [about, setAbout] = useState<aboutdata[]>([])
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch('/api/data')
-        if (!res.ok) throw new Error('Failed to fetch')
-        const data = await res.json()
-        setAbout(data.Aboutdata)
-      } catch (error) {
-        console.error('Error fetching services:', error)
-      } finally {
-        setLoading(false)
-      }
-    }
-    fetchData()
-  }, [])
-
   return (
     <section id='About' className='bg-cover bg-center overflow-hidden'>
       <div className='container mx-auto max-w-7xl px-4 relative z-1'>
@@ -45,39 +23,31 @@ const Aboutus = () => {
             Tìm hiểu thêm về G Project.
           </h2>
           <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 mt-6 sm:mt-10'>
-            {loading
-              ? Array.from({ length: 3 }).map((_, index) => (
-                  <AboutSkeleton key={index} />
-                ))
-              : about.map((item, i) => (
-                  <div
-                    key={i}
-                    className='hover:bg-darkmode bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-xl group'>
-                    <h5 className='group-hover:text-white mb-4 sm:mb-5'>
-                      {item.heading}
-                    </h5>
-                    <Image
-                      src={item.imgSrc}
-                      alt={item.heading}
-                      width={100}
-                      height={100}
-                      className='mb-4 sm:mb-5'
-                    />
-                    <p className='text-base sm:text-lg font-normal text-black group-hover:text-white mb-4 sm:mb-5'>
-                      {item.paragraph}
-                    </p>
-                    <Link
-                      href={item.href}
-                      className='text-base font-semibold text-primary hover-underline flex items-center'>
-                      {item.link}
-                      <Icon
-                        icon='tabler:chevron-right'
-                        width='20'
-                        height='20'
-                      />
-                    </Link>
-                  </div>
-                ))}
+            {Aboutdata.map((item, i) => (
+              <div
+                key={i}
+                className='hover:bg-darkmode bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-xl group'>
+                <h5 className='group-hover:text-white mb-4 sm:mb-5'>
+                  {item.heading}
+                </h5>
+                <Image
+                  src={item.imgSrc}
+                  alt={item.heading}
+                  width={100}
+                  height={100}
+                  className='mb-4 sm:mb-5'
+                />
+                <p className='text-base sm:text-lg font-normal text-black group-hover:text-white mb-4 sm:mb-5'>
+                  {item.paragraph}
+                </p>
+                <Link
+                  href={item.href}
+                  className='text-base font-semibold text-primary hover-underline flex items-center'>
+                  {item.link}
+                  <Icon icon='tabler:chevron-right' width='20' height='20' />
+                </Link>
+              </div>
+            ))}
           </div>
         </div>
       </div>

@@ -2,26 +2,9 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
-import { footerlinks } from '@/app/types/footerlinks'
+import { FooterLinksData } from '@/data/site'
 
 const Footer = () => {
-  const [footerLinks, setFooterLinks] = useState<footerlinks[]>([])
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch('/api/data')
-        if (!res.ok) throw new Error('Failed to fetch')
-        const data = await res.json()
-        setFooterLinks(data.FooterLinksData)
-      } catch (error) {
-        console.error('Error fetching services:', error)
-      }
-    }
-    fetchData()
-  }, [])
-
   return (
     <footer className='bg-black'>
       <div className='container mx-auto max-w-7xl px-4 pt-16 sm:pt-20 lg:pt-24 pb-12'>
@@ -72,7 +55,7 @@ const Footer = () => {
             </div>
           </div>
 
-          {footerLinks.map((item, i) => (
+          {FooterLinksData.map((item, i) => (
             <div key={i} className='lg:col-span-2'>
               <p className='text-white text-lg font-extrabold mb-5'>
                 {item.section}

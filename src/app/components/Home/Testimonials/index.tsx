@@ -1,11 +1,9 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Slider from 'react-slick'
 import Image from 'next/image'
 import { Icon } from '@iconify/react'
-import { testimonials } from '@/app/types/testimonials'
-import TestimonialSkeleton from '../../Skeleton/Testimonial'
-
+import { TestimonialsData } from '@/data/site'
 interface TestimonialType {
   name: string
   profession: string
@@ -100,26 +98,6 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({ items }) => {
 }
 
 const Testimonial: React.FC = () => {
-  // fetch data
-  const [testimonals, setTestimonials] = useState<testimonials[]>([])
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch('/api/data')
-        if (!res.ok) throw new Error('Failed to fetch')
-        const data = await res.json()
-        setTestimonials(data.TestimonialsData)
-      } catch (error) {
-        console.error('Error fetching services:', error)
-      } finally {
-        setLoading(false)
-      }
-    }
-    fetchData()
-  }, [])
-
   return (
     <section
       className="bg-testimonial dark:bg-darkmode bg-cover bg-center overflow-hidden before:absolute before:w-full before:h-full before:bg-[url('/images/wework/elipse.svg')] before:bg-no-repeat before:bg-center"
@@ -131,13 +109,9 @@ const Testimonial: React.FC = () => {
           </div>
           <div className='mt-20'>
             <Slider {...settings}>
-              {loading
-                ? Array.from({ length: 3 }).map((_, i) => (
-                    <TestimonialSkeleton key={i} />
-                  ))
-                : testimonals.map((items, i) => (
-                    <TestimonialCard key={i} items={items} />
-                  ))}
+              {TestimonialsData.map((items, i) => (
+                <TestimonialCard key={i} items={items} />
+              ))}
             </Slider>
           </div>
         </div>

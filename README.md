@@ -35,12 +35,16 @@ npm run dev
 
 Mở [http://localhost:3000](http://localhost:3000)
 
-## Build production
+## Deploy Cloudflare Pages (static)
 
-```bash
-npm run build
-npm start
-```
+1. Cloudflare Dashboard → **Workers & Pages** → **Create** → **Pages** → Import GitHub repo `g-project-landing`
+2. Build settings:
+   - Framework preset: **Next.js (Static HTML Export)**
+   - Build command: `npx next build`
+   - Build output directory: `out`
+   - Node version: `20`
+3. Deploy → nhận URL `*.pages.dev`
+4. **Custom domains** → thêm domain đã mua (DNS trỏ về Cloudflare hoặc CNAME tới `*.pages.dev`)
 
 ## Tùy chỉnh nội dung
 

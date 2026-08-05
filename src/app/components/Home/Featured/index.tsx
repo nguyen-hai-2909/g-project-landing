@@ -1,12 +1,11 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import Image from 'next/image'
 import Link from 'next/link'
-import { featureddata } from '@/app/types/featureddata'
-import FeaturedSkeleton from '../../Skeleton/Featured'
+import { FeaturedData } from '@/data/site'
 
 function SampleNextArrow(props: { className: any; style: any; onClick: any }) {
   const { className, style, onClick } = props
@@ -81,26 +80,6 @@ const settings = {
 }
 
 const Featured = () => {
-  const [featured, setFeatured] = useState<featureddata[]>([])
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch('/api/data')
-        if (!res.ok) throw new Error('Failed to fetch')
-        const data = await res.json()
-        setFeatured(data.FeaturedData)
-      } catch (error) {
-        console.error('Error fetching services:', error)
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchData()
-  }, [])
-
   return (
     <section id='Projects' className="relative bg-deepSlate dark:bg-darkmode  after:absolute after:w-1/4 after:h-1/4 after:bg-[url('/images/wework/vector.svg')]  after:top-72 after:right-0 after:bg-no-repeat">
       <div className='container mx-auto max-w-7xl px-4 relative'>
@@ -114,28 +93,24 @@ const Featured = () => {
         </div>
 
         <Slider {...settings}>
-          {loading
-            ? Array.from({ length: 2 }).map((_, index) => (
-                <FeaturedSkeleton key={index} />
-              ))
-            : featured.map((items, i) => (
-                <div key={i}>
-                  <div className='bg-transparent m-3 rounded-3xl'>
-                    <Image
-                      src={items.imgSrc}
-                      alt='gaby'
-                      width={636}
-                      height={620}
-                      className='rounded-2xl'
-                    />
-                    <div>
-                      <h4 className='max-w-sm font-bold text-center sm:text-start my-6 text-black'>
-                        {items.heading}
-                      </h4>
-                    </div>
-                  </div>
+          {FeaturedData.map((items, i) => (
+            <div key={i}>
+              <div className='bg-transparent m-3 rounded-3xl'>
+                <Image
+                  src={items.imgSrc}
+                  alt={items.heading}
+                  width={636}
+                  height={620}
+                  className='rounded-2xl'
+                />
+                <div>
+                  <h4 className='max-w-sm font-bold text-center sm:text-start my-6 text-black'>
+                    {items.heading}
+                  </h4>
                 </div>
-              ))}
+              </div>
+            </div>
+          ))}
         </Slider>
       </div>
     </section>

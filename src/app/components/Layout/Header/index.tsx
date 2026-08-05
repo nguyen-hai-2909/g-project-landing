@@ -1,6 +1,7 @@
 'use client'
 import { Key, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
+import { headerData } from '@/data/site'
 import { HeaderItem } from '@/app/types/menu'
 import Logo from './Logo'
 import HeaderLink from './Navigation/HeaderLink'
@@ -34,22 +35,6 @@ const Header: React.FC = () => {
       document.body.style.overflow = ''
     }
   }, [navbarOpen])
-
-  const [headerData, setHeaderData] = useState<HeaderItem[]>([])
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch('/api/data')
-        if (!res.ok) throw new Error('Failed to fetch')
-        const data = await res.json()
-        setHeaderData(data.headerData)
-      } catch (error) {
-        console.error('Error fetching services:', error)
-      }
-    }
-    fetchData()
-  }, [])
 
   const closeMenu = () => setNavbarOpen(false)
 

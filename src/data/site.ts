@@ -1,5 +1,3 @@
-import { NextResponse } from 'next/server'
-
 import { HeaderItem } from '@/app/types/menu'
 import { aboutdata } from '@/app/types/aboutdata'
 import { workdata } from '@/app/types/workdata'
@@ -8,14 +6,14 @@ import { testimonials } from '@/app/types/testimonials'
 import { articles } from '@/app/types/articles'
 import { footerlinks } from '@/app/types/footerlinks'
 
-const headerData: HeaderItem[] = [
+export const headerData: HeaderItem[] = [
   { label: 'Về chúng tôi', href: '/about' },
   { label: 'Dịch vụ', href: '/services' },
   { label: 'Dự án', href: '/projects' },
   { label: 'FAQ', href: '/faq' },
 ]
 
-const Aboutdata: aboutdata[] = [
+export const Aboutdata: aboutdata[] = [
   {
     heading: 'Về chúng tôi.',
     imgSrc: '/images/aboutus/imgOne.svg',
@@ -42,7 +40,7 @@ const Aboutdata: aboutdata[] = [
   },
 ]
 
-const WorkData: workdata[] = [
+export const WorkData: workdata[] = [
   {
     profession: 'Y tế công',
     name: 'HSSK Hà Nội',
@@ -65,7 +63,7 @@ const WorkData: workdata[] = [
   },
 ]
 
-const FeaturedData: featureddata[] = [
+export const FeaturedData: featureddata[] = [
   {
     heading: 'Hệ thống quản lý kho & logistics cho doanh nghiệp vận tải.',
     imgSrc: '/images/featured/feat1.jpg',
@@ -84,7 +82,7 @@ const FeaturedData: featureddata[] = [
   },
 ]
 
-const PlansData = [
+export const PlansData = [
   {
     heading: 'Khởi đầu',
     price: {
@@ -133,7 +131,7 @@ const PlansData = [
   },
 ]
 
-const TestimonialsData: testimonials[] = [
+export const TestimonialsData: testimonials[] = [
   {
     name: 'Nguyễn Văn Minh',
     profession: 'CEO, TechRetail Vietnam',
@@ -184,7 +182,7 @@ const TestimonialsData: testimonials[] = [
   },
 ]
 
-const ArticlesData: articles[] = [
+export const ArticlesData: articles[] = [
   {
     time: '5 phút',
     heading: '5 xu hướng chuyển đổi số',
@@ -241,7 +239,7 @@ const ArticlesData: articles[] = [
   },
 ]
 
-const FooterLinksData: footerlinks[] = [
+export const FooterLinksData: footerlinks[] = [
   {
     section: 'Menu',
     links: [
@@ -280,16 +278,3 @@ const FooterLinksData: footerlinks[] = [
     ],
   },
 ]
-
-export const GET = () => {
-  return NextResponse.json({
-    headerData,
-    Aboutdata,
-    WorkData,
-    FeaturedData,
-    PlansData,
-    TestimonialsData,
-    ArticlesData,
-    FooterLinksData,
-  })
-}
